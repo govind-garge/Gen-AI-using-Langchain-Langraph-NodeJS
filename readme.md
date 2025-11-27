@@ -39,8 +39,6 @@ main();
 npm install @langchain/langgraph @langchain/core
 ```
 
-Docs: LangGraph Overview
-
 ------------------------------------------------------------------------
 
 ## 4. Install Groq LLM Client
@@ -145,6 +143,7 @@ main();
 ```
 
 ------------------------------------------------------------------------
-👨‍💻 Author
-Created with ❤️ by Govind Garge
-Tech Stack: NodeJS, LangChain, Langgraph, Tavily, Groq
+
+# 👨‍💻 Author
+## Created with ❤️ by Govind Garge
+## Tech Stack: NodeJS, LangChain, Langgraph, Tavily, Groq
