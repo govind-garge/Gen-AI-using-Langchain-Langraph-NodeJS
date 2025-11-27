@@ -7,9 +7,6 @@ import { ToolNode } from '@langchain/langgraph/prebuilt';
 import { TavilySearch } from "@langchain/tavily";
 
 dotenv.config();
-/**
- * initialise LLM
- */
 
 // Initialize tavily tool 
 const tool = new TavilySearch({
@@ -38,9 +35,7 @@ const llm = new ChatGroq({
     // other params...
 }).bindTools(tools);
 
-/**
- * function to call LLM
- */
+// function to call LLM
 async function callModel(state){
     
     console.log("console.log: LLM function called");
@@ -67,25 +62,20 @@ function shouldContinue(state){
     return "__end__";
 }
 
-/*
-* Build the graph
-*/
+// Build the graph workflow
 const workflow = new StateGraph(MessagesAnnotation)
+                // given starting point workflow will start from here
+                .addEdge("__start__","agent")
                 // added function to call LLM
                 .addNode("agent", callModel)
-                // Tool given for web search
-                .addNode("tools", toolNode)
-                // given starting point
-                .addEdge("__start__","agent")
-                // calling agent after tool result come
-                .addEdge("tools","agent")
                 // call tools if the function return tools as a response or __end__
-                .addConditionalEdges("agent", shouldContinue);
+                .addConditionalEdges("agent", shouldContinue)
+                // If addConditionalEdges return tools then Tool(Tavily) given for web search
+                .addNode("tools", toolNode)
+                // calling agent after tool result come
+                .addEdge("tools","agent");
 
-/**
- * compile and invoke the graph
- */
-
+// compile the graph workflow
 const app = workflow.compile();
 
 async function main() {
@@ -94,11 +84,14 @@ async function main() {
 
     while(true){
         
+        // get user input from commandline
         const user_input = await rl.question('You:');
 
+        // break while loop if input is bye
         if(user_input == 'bye')
             break;
 
+        // Call the workflow with user input
         const final_state = await app.invoke({
             messages:[{role:'user', content:user_input}],
         })
