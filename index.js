@@ -50,7 +50,7 @@ function shouldContinue(state){
 
     console.log("console.log:should continue function called");
     
-    // Get last message length, last massage is ai message
+    // Get last message, last massage is ai responded message
     const last_message = state.messages[state.messages.length -1];
 
     // if tool_calls length is greater than 0 it means LLM suggest us to call the tool
