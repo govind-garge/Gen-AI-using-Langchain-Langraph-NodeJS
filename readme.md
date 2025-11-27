@@ -144,6 +144,6 @@ main();
 
 ------------------------------------------------------------------------
 
-# 👨‍💻 Author
-## Created with ❤️ by Govind Garge
-## Tech Stack: NodeJS, LangChain, Langgraph, Tavily, Groq
+## 👨‍💻 Author
+Created with ❤️ by Govind Garge\
+Tech Stack: NodeJS, LangChain, Langgraph, Tavily, Groq
